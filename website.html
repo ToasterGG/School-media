@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decoded Social Media Page</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        background: #111827;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      (async () => {
+        try {
+          const response = await fetch('./bookmarklet-base64');
+          const text = await response.text();
+          const cleaned = text
+            .replace(/^data:text\/html;base64,/i, '')
+            .replace(/\s+/g, '')
+            .trim();
+
+          const decoded = atob(cleaned);
+          document.open();
+          document.write(decoded);
+          document.close();
+        } catch (error) {
+          document.write('<pre style="padding:20px;font-family:sans-serif;color:#fff;background:#111827;">Failed to decode bookmarklet: ' + error.message + '</pre>');
+          document.close();
+        }
+      })();
+    </script>
+  </body>
+</html>
