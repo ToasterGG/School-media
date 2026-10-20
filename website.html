@@ -1,254 +1,570 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>School Media</title>
-<style>
-:root{--bg:#fff;--fg:#1c1c1e;--mu:#8e8e93;--bd:#dbdbdb;--ac:#0095f6;--cd:#fafafa;--me:#3797f0}
-@media(prefers-color-scheme:dark){:root{--bg:#000;--fg:#f5f5f5;--mu:#8e8e93;--bd:#262626;--cd:#121212}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-button,input,textarea{font:inherit;color:inherit}
-button{background:none;border:0;cursor:pointer;padding:6px}
-a{cursor:pointer}
-header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);padding:10px 16px;font:700 22px "Brush Script MT","Segoe Script",cursive}
-#main{max-width:470px;margin:0 auto;padding:0 0 80px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:var(--bg);border-top:1px solid var(--bd);padding:4px 0 max(4px,env(safe-area-inset-bottom));z-index:[...]
-nav button{font-size:24px;opacity:.55}nav button.on{opacity:1}
-@media(min-width:900px){nav{top:0;right:auto;width:80px;flex-direction:column;justify-content:flex-start;gap:14px;border-top:0;border-right:1px solid var(--bd);padding-top:70px}header{padding-left[...]
-.mu{color:var(--mu);text-align:center;padding:30px}
-.post{border-bottom:1px solid var(--bd);margin:0 0 8px;padding-bottom:6px}
-.ph{display:flex;align-items:center;gap:8px;padding:8px 10px}
-.ph a{display:flex;align-items:center;gap:8px;flex:1}
-.t{color:var(--mu);font-size:12px}
-.av{width:32px;height:32px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex:none}
-.av.big{width:80px;height:80px;font-size:34px}
-.vbg{color:#0095f6;font-weight:700;font-size:.8em;vertical-align:middle;margin-left:2px}.dbg{font-size:.85em;vertical-align:middle;margin-left:1px}
-.post>img,.post>video{width:100%;max-height:600px;object-fit:cover;background:var(--cd);min-height:200px;display:block;user-select:none}
-.post>video{object-fit:contain;background:#000}
-.vt{aspect-ratio:1;background:#222;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer}
-#rl{position:fixed;left:0;right:0;top:46px;bottom:calc(50px + env(safe-area-inset-bottom));overflow-y:scroll;scroll-snap-type:y mandatory;background:#000;z-index:4;overscroll-behavior:contain}
-.rv{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;background:#000}
-.rv video{width:100%;height:100%;object-fit:contain;display:block}
-.ro{position:absolute;left:12px;bottom:14px;right:76px;color:#fff;text-shadow:0 1px 3px #000}
-.rb{position:absolute;right:6px;bottom:20px;display:flex;flex-direction:column;gap:10px;align-items:center;color:#fff;text-shadow:0 1px 3px #000}
-.rb button{font-size:30px;color:#fff}.rb .on{color:#ed4956}
-@media(min-width:900px){#rl{left:80px;bottom:0}}
-#pv{max-height:60vh}
-.ac{padding:2px 6px;font-size:24px}.ac .on{color:#ed4956}
-.lk,.cp,.cm div{padding:0 12px}.lk{font-weight:600}
-.cm div{font-size:14px}
-.ci{display:flex;padding:6px 12px;gap:6px}
-.ci input,.in{flex:1;border:1px solid var(--bd);background:var(--cd);border-radius:20px;padding:8px 14px;outline:0;width:100%}
-.ci button{color:var(--ac);font-weight:600}
-.btn{background:var(--ac);color:#fff;border-radius:8px;padding:8px 16px;font-weight:600}
-.btn:disabled{opacity:.5}.btn.g{background:var(--cd);color:var(--fg);border:1px solid var(--bd)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:10px}
-.grid img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--cd);cursor:pointer}
-.pf{display:flex;gap:20px;padding:16px;align-items:center}.pf h2{margin:0}.pf p{margin:4px 0 8px}
-.st{padding:0 16px 10px;display:grid;gap:8px}
-.ur{display:flex;align-items:center;gap:10px;padding:8px 14px}
-.row{display:flex;gap:8px;padding:10px 14px}
-h3{padding:10px 14px;margin:0}
-.ch{display:flex;flex-direction:column;height:calc(100vh - 140px)}
-.ms{flex:1;overflow:auto;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
-.b{background:var(--cd);border:1px solid var(--bd);padding:7px 12px;border-radius:18px;max-width:75%;align-self:flex-start;word-wrap:break-word}
-.b.me{background:var(--me);color:#fff;border-color:var(--me);align-self:flex-end}
-#modal{position:fixed;inset:0;background:#000a;z-index:20;display:none;overflow:auto;padding:20px 10px}
-#modal .post{background:var(--bg);max-width:470px;margin:0 auto;border-radius:8px}
-#lg{position:fixed;inset:0;background:var(--bg);z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}
-#lg>div{width:100%;max-width:340px;display:grid;gap:10px;text-align:center}
-#lg h1{font:700 44px "Brush Script MT","Segoe Script",cursive;margin:0 0 10px}
-.in{border-radius:8px}textarea.in{min-height:70px;margin:8px 0;display:block}
-#pv{width:100%;margin:10px 0;border-radius:8px}
-#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:20px;z-index:40;display:none;max-width:90%}
-html[data-theme=dark]{--bg:#000;--fg:#f5f5f5;--bd:#262626;--cd:#121212}
-html[data-theme=light]{--bg:#fff;--fg:#1c1c1e;--bd:#dbdbdb;--cd:#fafafa}
-body{background:var(--cd)}
-header{display:flex;justify-content:space-between;align-items:center;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px)}
-#lgo,#lg h1{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);-webkit-background-clip:text;background-clip:text;color:transparent;cursor:pointer}
-#th{font:20px system-ui}
-.post{background:var(--bg);border:1px solid var(--bd);border-radius:14px;margin:12px 8px;overflow:hidden;padding-bottom:8px}
-.ph .av{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px #e1306c}
-img.av{object-fit:cover;background:var(--cd)}
-.ac{display:flex;align-items:center}.sv{margin-left:auto}.ac .sv.on{color:#f5b301}
-.ac .on{animation:pop .3s}@keyframes pop{40%{transform:scale(1.5)}}
-.btn{border-radius:10px;transition:transform .1s}.btn:active{transform:scale(.96)}
-.tabs{display:flex;border-bottom:1px solid var(--bd);background:var(--bg)}
-.tabs button{flex:1;padding:12px;font-weight:600;opacity:.5;border-bottom:2px solid transparent}
-.tabs .on{opacity:1;border-color:var(--fg)}
-.sk{height:320px;margin:12px 8px;border-radius:14px;background:linear-gradient(90deg,var(--bd) 25%,var(--cd) 50%,var(--bd) 75%);background-size:200% 100%;animation:sk 1.2s infinite}
-@keyframes sk{to{background-position:-200% 0}}
-.pf .t b{font-size:16px;color:var(--fg)}.pf .t{margin-right:6px}
-nav button.on{transform:scale(1.15)}
-.tg{color:var(--ac);cursor:pointer}.ed{min-height:80px}
-.rv{display:flex;justify-content:center}
-.rw{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#000;margin:0 auto}
-.ro{left:12px;right:64px;bottom:16px}
-.rn{display:flex;align-items:center;gap:8px;margin-bottom:6px}.rn .av{width:36px;height:36px}
-.fb{border:1px solid #fff;color:#fff;border-radius:6px;padding:2px 10px;font-size:13px;font-weight:600}.fb.g{opacity:.7}
-.rb{right:8px;bottom:22%;gap:6px}.rb div{font-size:13px;margin-top:-6px}
-@media(min-width:600px){.rb{right:-60px}}
-.hb{position:absolute;top:50%;left:50%;font-size:90px;color:#ed4956;transform:translate(-50%,-50%) scale(0);opacity:0;pointer-events:none}
-.hb.go{animation:hp .8s}@keyframes hp{20%{transform:translate(-50%,-50%) scale(1.2);opacity:1}70%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
-.pgb{position:absolute;left:0;right:0;bottom:0;height:3px;background:#fff4}.pgb i{display:block;height:100%;width:0;background:#fff}
-.rs{display:grid;gap:8px;margin:10px 0}.rr{padding:10px 14px;background:var(--cd);border-radius:10px;margin:0 8px 14px;display:grid;gap:6px}.rp .post{margin-bottom:6px}
-#bgl{position:fixed;inset:0;z-index:-1}
-.bg-sunset{background:linear-gradient(160deg,#ff9a8b,#ff6a88 45%,#ff99ac)}
-.bg-ocean{background:linear-gradient(160deg,#2193b0,#6dd5ed)}
-.bg-mint{background:linear-gradient(160deg,#11998e,#38ef7d)}
-.bg-grape{background:linear-gradient(160deg,#6a11cb,#2575fc)}
-.bg-confetti{background:#fff8f0 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><circle cx='15' cy='20' r='4' fill='#ff6b6b'/><rect x='70' y='30' width='8[...]
-.bg-waves{background:#e8f9ff url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='24'><path d='M0 12q10-12 20 0t20 0 20 0 20 0' fill='none' stroke='#00a8e8' stroke-o[...]
-.bg-flow{background:linear-gradient(120deg,#ff5f6d,#ffc371,#47e8d4,#7b61ff,#ff5f6d);background-size:400% 400%;animation:flow 14s ease infinite}
-@keyframes flow{50%{background-position:100% 50%}}
-.bg-aurora{background:radial-gradient(ellipse at 20% 30%,#00ffa588,transparent 55%),radial-gradient(ellipse at 80% 20%,#7b2ff788,transparent 55%),radial-gradient(ellipse at 50% 90%,#00c6ff88,tran[...]
-.bg-lava{background:radial-gradient(circle at 30% 30%,#ff512f,transparent 40%),radial-gradient(circle at 70% 60%,#dd2476,transparent 40%),radial-gradient(circle at 40% 85%,#f7971e,transparent 40%[...]
-.bg-bubbles{background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><g fill='none' stroke='white' stroke-opacity='.7' stroke-width='2'><circle cx='50' [...]
-@keyframes rise{to{background-position:0 -300px,0 0}}
-.bg-stars{background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><g fill='white'><circle cx='20' cy='30' r='1.5'/><circle cx='120' cy='70' r='1'/><cir[...]
-@keyframes drift{to{background-position:200px 200px,340px 340px,0 0}}
-.bg-grid{background:linear-gradient(transparent 94%,#ff2ec466 95%) 0 0/50px 50px,linear-gradient(90deg,transparent 94%,#00e5ff66 95%) 0 0/50px 50px,linear-gradient(180deg,#1a0033,#4a0e6b 60%,#ff2[...]
-@keyframes grid{to{background-position:0 50px,50px 0,0 0}}
-.bg-party{background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><circle cx='15' cy='20' r='4' fill='#ff6b6b'/><rect x='70' y='30' width='8' height='8[...]
-@keyframes fall{to{background-position:0 120px,0 0}}
-@media(prefers-reduced-motion:reduce){#bgl,.sw{animation:none!important}}
-.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;padding:0 14px 10px}
-.sw{height:64px;border-radius:12px;border:2px solid var(--bd);color:#fff;font-size:12px;font-weight:600;text-shadow:0 1px 3px #0009;position:relative;display:flex;align-items:flex-end;padding:6px[...]
-.sw.on{border-color:var(--ac)}.sw.bg-none{background:var(--cd);color:var(--fg);text-shadow:none}.sw svg{position:absolute;top:6px;right:6px}
-svg.i{display:inline-block;vertical-align:middle}
-.vbg svg,.dbg svg{width:15px;height:15px;vertical-align:-2px;margin-left:3px}
-.hb svg{display:block}
-.av.an{background:#6b7280}.ck{display:flex;gap:8px;align-items:center;margin:8px 0}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--ac);flex:none}.pv{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#rl{background:transparent}
-@media(min-width:600px){.rw video{border-radius:16px}.rb{color:var(--fg);text-shadow:none}.rb button:not(.on){color:var(--fg)}}
-.hbn{background:#ed49561a;color:#ed4956;padding:6px 12px;font-size:13px;font-weight:600}
-.hdn{display:flex;gap:12px;align-items:center;padding:18px;color:var(--mu)}
-.rl{display:flex;gap:12px;padding:8px 16px}.rno{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-nav button{position:relative}.nb{position:absolute;top:2px;right:4px;background:#ed4956;color:#fff;font:700 10px/16px system-ui;min-width:16px;border-radius:8px;text-align:center;font-style:norma[...]
-header>span{display:flex;gap:2px}
-</style></head><body>
-<div id="bgl"></div>
-<header><span id="lgo">School Media</span><span><button id="rb" aria-label="Rules"></button><button id="th" aria-label="Toggle theme"></button></span></header>
-<div id="main"></div>
-<nav><button data-v="home" aria-label="home"></button><button data-v="explore" aria-label="explore"></button><button data-v="reels" aria-label="reels"></button><button data-v="newp" aria-label="newp"></button><button data-v="dms" aria-label="dms"></button><button data-v="profile" aria-label="profile"></button></nav>
-<div id="modal"></div><div id="toast"></div>
-<div id="lg"><div>
-<h1>School Media</h1>
-<input class="in" id="lu" placeholder="Username (a-z, 0-9, _ .)" autocapitalize="none" autocomplete="username">
-<input class="in" id="lt" type="password" placeholder="Password (GitHub token)" autocomplete="current-password">
-<button class="btn" id="lb">Sign in / Sign up</button>
-<div class="mu" style="padding:0;font-size:13px">New username? It gets created automatically.</div>
-</div></div>
-<script>
-const R='ToasterGG/School-media',A='https://api.github.com/repos/'+R+'/contents/';
-const $=s=>document.querySelector(s);
-const P={home:'<path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',explore:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',reels:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M9 8l7 4-7 4z"/>',newp:'<path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="9"/>',dms:'<path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/>',profile:'<circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/>'};
-const ic=(n,s=24,f=0)=>`<svg class="i" viewBox="0 0 24 24" width="${s}" height="${s}" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${P[n]}"/></svg>`;
-const VB='<svg viewBox="0 0 24 24"><path fill="#0095f6" d="M12 1l3 2.2 3.7-.2 1.2 3.5 3 2.1-1.2 3.5 1.2 3.5-3 2.1-1.2 3.5-3.7-.2L12 23l-3-2.2-3.7.2-1.2-3.5-3-2.1 1.2-3.5-1.2-3.5 3-2.1 1.2-3.5L9 3.2 12 1zm0 4.6l-1.7 3.4-3.7.5 2.7 2.6-.7 3.7 3.4-1.8 3.4 1.8-.7-3.7 2.7-2.6-3.7-.5L12 5.6z"/></svg>';
-const DB='<svg viewBox="0 0 24 24"><path fill="#f59e0b" d="M9 2h6l1 3h3v4l-2 2v7a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-7L4 9V5h3l1-3zm3 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>';
-const BGS=[['none','None',0],['sunset','Sunset',0],['ocean','Ocean',0],['mint','Mint',0],['grape','Grape',0],['confetti','Confetti',0],['waves','Waves',0],['flow','Gradient Flow',1],['aurora','Aurora',1],['lava','Lava',1],['bubbles','Bubbles',1],['stars','Stars',1],['grid','Grid',1],['party','Party',1]];
-const asBool=v=>v===true||v===1||String(v).toLowerCase()==='true';
-const isVerified=()=>asBool(ME&&ME.verified);
-const isDev=()=>asBool(ME&&ME.dev);
-const swH=x=>`<button class="sw bg-${x[0]} ${(ME.bg||'none')==x[0]?'on':''}" data-a="bg" data-id="${x[0]}">${x[1]}${x[2]&&!isVerified()?ic('lock',16):''}</button>`;
-function applyBg(){const b=BGS.find(x=>x[0]==(ME.bg||'none'));$('#bgl').className=b&&b[0]!='none'&&(!b[2]||isVerified())?'bg-'+b[0]:''}
-const esc=s=>String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const b64=s=>btoa(unescape(encodeURIComponent(s))),unb64=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
-let S=null,poll,PM={},IC={},UC={},MUTED=true,FEED='all',ME={tg:{},mt:{}},PC={},PN=[],HN=[],HP=0;
-try{S=JSON.parse(localStorage.getItem('sm')||'null')}catch(e){}
-function normalizeUserData(u={}){const d={...u,tg:u.tg||{},mt:u.mt||{},following:u.following||[],saved:u.saved||[],blocked:u.blocked||[]};d.verified=asBool(d.verified);d.dev=asBool(d.dev);return d}
-function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',3000)}
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const gh=(p,o={})=>fetch(p.startsWith('http')?p:A+p,{cache:'no-store',...o,headers:{Authorization:'Bearer '+S.tok,Accept:'application/vnd.github+json',...(o.headers||{})}});
-async function get(p){const r=await gh(p);if(r.status==404)return null;if(!r.ok)throw Error('GitHub '+r.status);const j=await r.json();return{sha:j.sha,data:JSON.parse(unb64(j.content))}}
-async function put(p,obj,sha){const r=await gh(p,{method:'PUT',body:JSON.stringify({message:'update',content:b64(JSON.stringify(obj)),sha})});if(!r.ok){const e=new Error('GitHub '+r.status);e.s=r.status;throw e}return r}
-async function upd(p,fn,def){for(let i=0;i<5;i++){const f=await get(p),d=fn(f?f.data:def);try{await put(p,d,f&&f.sha);return d}catch(e){if(e.s!=409&&e.s!=422)throw e;await wait(300*(i+1))}}throw Error('Conflict retry failed')}
-async function ls(d){const r=await gh(d);return r.ok?(await r.json()).map(x=>x.name):[]}
-async function img(p){if(IC[p])return IC[p];const r=await gh(p,{headers:{Accept:'application/vnd.github.raw'}});if(!r.ok)throw 0;let b=await r.blob();if(p.endsWith('.mp4'))b=new Blob([b],{type:'video/mp4'});IC[p]=URL.createObjectURL(b);return IC[p]}
-const ld=el=>{if(el.dataset.l)return;el.dataset.l=1;img(el.dataset.p).then(u=>{el.src=u;const rv=el.closest('.rv');if(rv&&rv.dataset.on){el.muted=MUTED;el.play().catch(()=>{})}}).catch(()=>{})};
-const LIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){LIO.unobserve(e.target);ld(e.target)}}),{rootMargin:'400px'});
-function hy(root=document){root.querySelectorAll('[data-p]:not([data-l])').forEach(el=>{if(el.closest('.rv'))return;el.tagName=='VIDEO'?LIO.observe(el):ld(el)})}
-function shrink(f,m=1080){return new Promise(res=>{const i=new Image();i.onload=()=>{const k=Math.min(1,m/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;const x=c.getContext('2d');x.drawImage(i,0,0,c.width,c.height);c.toBlob(b=>res(b?b.arrayBuffer?b.arrayBuffer():b:''),f.type.startsWith('image/')?f.type:'image/jpeg',.85)};i.src=URL.createObjectURL(f)})}
-const ago=t=>{const s=(Date.now()-t)/1e3;return s<60?'now':s<3600?(s/60|0)+'m':s<86400?(s/3600|0)+'h':(s/86400|0)+'d'};
-const av=(n,c='')=>UC[n]?.a?`<img class="av ${c}" data-p="media/av_${n}.jpg" alt="">`:`<span class="av ${c}" style="background:hsl(${[...n].reduce((a,x)=>a+x.charCodeAt(0)*47,0)%360} 55% 48%)">${n.split(/[_.-]/).map(x=>x[0]||'').join('').slice(0,2).toUpperCase()||'?'}</span>`;
-const badge=n=>(UC[n]?.v?'<span class="vbg" title="Verified">'+VB+'</span>':'')+(UC[n]?.d?'<span class="dbg" title="Developer">'+DB+'</span>':'');
-async function loadUC(names){const need=[...new Set(names)].filter(n=>!(n in UC));if(!need.length)return;await Promise.all(need.map(async n=>{const f=await get('users/'+n+'.json');UC[n]=f?{v:asBool(f.data.verified),d:asBool(f.data.dev),a:!!f.data.av}:{v:0,d:0,a:0}}))}
-const M=h=>{$('#main').innerHTML=h;hy()};
-const un=n=>n.replace(/^p\d+v?_/, '').slice(0,-5);
-const tags=t=>[...new Set((t.match(/#\w+/g)||[]).map(x=>x.slice(1).toLowerCase()))],ptags=p=>tags(p.cap||''),tsc=t=>(ME.tg[t]||0)+(ME.mt[t]||0);
-const scoreP=p=>ptags(p).reduce((a,t)=>a+tsc(t),0)+(!p.an&&(ME.following||[]).includes(p.user)?2:0);
-const capH=t=>esc(t||'').replace(/#(\w+)/g,'<a class="tg" data-a="tag" data-t="$1">#$1</a>').replace(/(^|\s)@(\w+)/g,'$1<a class="tg" data-a="user" data-u="$2">@$2</a>');
-let SA;function saveAlg(){clearTimeout(SA);SA=setTimeout(()=>upd('users/'+S.name+'.json',q=>{q.tg=ME.tg;q.mt=ME.mt;return q}).catch(()=>{}),4000)}
-function bump(g,w){g.forEach(x=>ME.tg[x]=Math.round(Math.max(-20,Math.min(50,(ME.tg[x]||0)+w))*100)/100);saveAlg()}
-async function learnFrom(u){try{const ns=(await ls('posts')).filter(n=>un(n)==u).sort().reverse().slice(0,6);(await Promise.all(ns.map(n=>get('posts/'+n)))).forEach(x=>x&&!x.data.an&&bump(ptags(x.data),3))}catch(e){}}
-const who=p=>p.an?`<a><span class="av an">${ic('anon',20)}</span><b>Anonymous</b>${p.user==S.name?'<span class="t"> (you)</span>':isDev()?`<span class="t"> (${esc(p.user)})</span>`:''}</a>`:`<a data-a="user" data-u="${p.user}">${av(p.user)}<b>${esc(p.user)}</b>${badge(p.user)}</a>`;
-const blk=u=>(ME.blocked||[]).includes(u);
-const hidePost=id=>Promise.all([upd('posts/'+id+'.json',q=>{q.hid=true;q.hb=q.hb||S.name;return q}),upd('reports/'+id+'.json',q=>{if(!q.r.some(r=>r.u==S.name))q.r.push({u:S.name,why:'Hidden by verified/developer',ts:Date.now()});return q},{id,r:[]})]);
-const DEF=['# Community rules','Be respectful. No harassment, bullying, threats or hate speech.','Keep it appropriate. No explicit, violent or shocking content.',"Respect privacy. Do not share other people’s private details."];
-let RL={text:DEF,ts:0};
-async function loadRules(){try{const f=await get('rules.json');RL=f&&f.data.text?f.data:{text:DEF,ts:0}}catch(e){}}
-const ruleH=t=>{let n=0;return t.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>l[0]=='#'?(n=0,`<h4 class="rh">${esc(l.replace(/^#+\s*/,''))}</h4>`):`<div class="rl"><span class="rno">${++n}</span><span>${esc(l)}</span></div>`).join('')};
-const isV=id=>/^p\d+v_/.test(id),mp=id=>'media/'+id+(isV(id)?'.mp4':'.jpg');
-async function login(name,tok){
-  name=name.trim().toLowerCase();
-  if(!/^[a-z0-9_.]{3,20}$/.test(name))throw Error('Username: 3-20 chars, a-z 0-9 _ .');
-  const r=await fetch('https://api.github.com/user',{headers:{Authorization:'Bearer '+tok}});
-  if(!r.ok)throw Error('Invalid GitHub token');
-  const owner=(await r.json()).login;S={name,tok};
-  const u=await get('users/'+name+'.json');
-  if(u&&u.data.owner!==owner){S=null;throw Error('Username taken by someone else');}
-  if(u&&(u.data.verified===undefined||u.data.dev===undefined))await upd('users/'+name+'.json',q=>{if(q.verified===undefined)q.verified=false;if(q.dev===undefined)q.dev=false;return q});
-  if(!u)await put('users/'+name+'.json',{name,owner,bio:'',verified:false,dev:false,ts:Date.now()});
-  localStorage.setItem('sm',JSON.stringify(S));
-}
-$('#lb').onclick=async()=>{$('#lb').disabled=true;try{await login($('#lu').value,$('#lt').value.trim());start()}catch(e){toast(e.message)}$('#lb').disabled=false};
-async function loadMe(){try{const f=await get('users/'+S.name+'.json');ME=normalizeUserData(f?f.data:{name:S.name,owner:S.name,verified:false,dev:false,ts:Date.now()});ME.tg=ME.tg||{};ME.mt=ME.mt||{}}catch(e){ME=normalizeUserData({name:S.name,verified:false,dev:false})}}
-function start(){$('#lg').style.display='none';$('#lt').value='';loadMe().finally(async()=>{applyBg();await loadRules();if(isDev()&&!$('nav [data-v=reports]')){$('nav').insertAdjacentHTML('beforeend','<button data-v="reports">'+ic('reports',26)+'</button>');ls('reports').then(n=>n.length&&$('nav [data-v=reports]').classList.add('nb'))}go(localStorage.getItem('rk')==String(RL.ts)?'home':'rules')})}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Media</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --text: #1a1d24;
+      --muted: #667085;
+      --line: #dfe3ec;
+      --primary: #2166ef;
+      --primary-soft: #eaf1ff;
+      --danger: #d93025;
+      --success: #1f8f5f;
+      --shadow: 0 12px 35px rgba(26, 29, 36, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 24%, var(--bg) 100%);
+      color: var(--text);
+      font: 15px/1.45 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    .app {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .login-shell {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+    }
+    .login {
+      width: min(100%, 420px);
+      padding: 24px 20px;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    input, button, textarea {
+      font: inherit;
+    }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px 14px;
+      color: var(--text);
+    }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: 2px solid rgba(33, 102, 239, 0.2);
+      border-color: var(--primary);
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: .6; cursor: wait; }
+    .primary {
+      background: var(--primary);
+      color: white;
+    }
+    .secondary {
+      background: #edf2ff;
+      color: var(--primary);
+    }
+    .ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .status {
+      min-height: 22px;
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--danger);
+    }
+    .status.ok {
+      color: var(--success);
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 18px 8px;
+    }
+    .avatar {
+      width: 62px;
+      height: 62px;
+      background: linear-gradient(135deg, #2166ef, #7d68ff);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      width: fit-content;
+    }
+    .badge.warn {
+      background: #fff3d6;
+      color: #8a5b00;
+    }
+    .panel {
+      padding: 18px;
+    }
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .hidden { display: none; }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 14, 20, 0.48);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 30;
+    }
+    .modal {
+      width: min(100%, 430px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .modal .row {
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .pill strong { font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div id="loginView" class="login-shell">
+    <div class="card login">
+      <h1>School Media</h1>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" autocomplete="username" placeholder="your-username" />
+      </div>
+      <div class="field">
+        <label for="token">GitHub token</label>
+        <input id="token" type="password" autocomplete="current-password" placeholder="ghp_xxx or personal access token" />
+      </div>
+      <div class="field">
+        <label for="accountPassword">Account password</label>
+        <input id="accountPassword" type="password" autocomplete="new-password" placeholder="Optional for new accounts" />
+      </div>
+      <button id="loginBtn" class="primary" style="width:100%;margin-top:4px">Sign in / Sign up</button>
+      <div class="muted">New usernames are created automatically. If your account already has a password, enter it here.</div>
+      <div id="loginStatus" class="status"></div>
+    </div>
+  </div>
 
-/* ---- posts ---- */
-function postH(p){PM[p.id]=p;const l=p.likes.includes(S.name),sv=(ME.saved||[]).includes(p.id);if(p.hid&&!isDev())return `<article class="post" data-id="${p.id}"><div class="hdn">${ic('eyeoff',24)}<span>Hidden pending review</span></div></article>`;return `<article class="post" data-id="${p.id}">${p.hid?`<div class="hbn">Hidden pending review${p.hb?' (by '+(p.hb=='auto'?'reports':esc(p.hb))+')':''}</div>`:''}<div class="ph">${who(p)}<span class="t">${ago(p.ts)}</span></div><div class="lk">${capH(p.cap||'')}</div>${p.img?`<img data-p="${mp(p.id)}" alt="">`:''}${p.video?`<video data-p="${mp(p.id)}" controls playsinline></video>`:''}<div class="ac">${!l?`<button data-a="like">${ic('heart',24)}</button>`:`<button data-a="like" class="on">${ic('heart',24,1)}</button>`}<button data-a="save" class="${sv?'on':''}">${ic('save',24,sv?1:0)}</button><button data-a="report">${ic('flag',24)}</button><button data-a="focus" class="sv">${ic('comment',24)}</button></div><div class="cm">${p.c.slice(-2).map(c=>`<div><b>${esc(c.u)}</b> ${capH(c.t)}</div>`).join('')}</div><div class="ci"><input placeholder="Add a comment"><button data-a="send">Post</button></div></article>`}
-const redraw=(art,p)=>{art.outerHTML=postH(p);hy()};
-async function like(art){const id=art.dataset.id,p=PM[id],i=p.likes.indexOf(S.name);i<0?p.likes.push(S.name):p.likes.splice(i,1);bump(ptags(p),i<0?3:-3);redraw(art,p);try{const d=await upd('posts/'+id+'.json',q=>{const j=q.likes.indexOf(S.name);(i<0)==(j<0)&&(j<0?q.likes.push(S.name):q.likes.splice(j,1));return q});PM[id]=d}catch(e){toast(e.message)}}
-async function comment(art){const inp=art.querySelector('.ci input'),t=inp.value.trim();if(!t)return;inp.value='';bump(ptags(PM[art.dataset.id]),2);try{const d=await upd('posts/'+art.dataset.id+'.json',q=>{q.c.push({u:S.name,t,ts:Date.now()});return q});redraw(document.querySelector(`[data-id="${d.id}"]`),d)}catch(e){toast(e.message)}}
-async function rmf(p){const r=await gh(p);if(r.ok){const j=await r.json();await gh(p,{method:'DELETE',body:JSON.stringify({message:'delete',sha:j.sha})})}}
-const killPost=async id=>{for(const p of ['posts/'+id+'.json',mp(id),'reports/'+id+'.json'])await rmf(p)};
-async function delPost(art){if(!confirm('Delete this post?'))return;try{await killPost(art.dataset.id);(art.closest('.rp')||art).remove();toast('Deleted')}catch(e){toast(e.message)}}
-const closeM=()=>{$('#modal').style.display='none';$('#modal').innerHTML=''};
-function openReport(id){const m=$('#modal');m.innerHTML=`<div class="post" style="padding:16px" data-id="${id}"><h3 style="padding:0">Report this post</h3><div class="rs">${['Spam','Inappropriate','Harassment','Other'].map(x=>`<label><input type="radio" name="why" value="${x}" ${x=='Spam'?'checked':''}> ${x}</label>`).join('')}</div><textarea id="rd" class="in" placeholder="Optional details"></textarea><div class="row"><button class="btn g" data-a="rcl">Cancel</button><button class="btn" data-a="rsend">Send report</button></div></div>`;m.style.display='block'}
-async function reports(){if(!isDev())return M('<p class="mu">Devs only</p>');M('<div class="sk"></div>');const ns=await ls('reports'),its=(await Promise.all(ns.map(n=>get('reports/'+n)))).filter(Boolean).map(x=>x.data);const ps=await Promise.all(its.map(it=>get('posts/'+it.id+'.json').then(x=>x&&x.data)));its.forEach((it,i)=>{if(!ps[i])rmf('reports/'+it.id+'.json')});await loadUC(ps.filter(Boolean).map(p=>p.user));const h=its.map((it,i)=>ps[i]?`<div class="rp" data-rid="${it.id}">${postH(ps[i])}<div class="rr">${ps[i].hid?'<b>Hidden from everyone until reviewed</b>':''}<b>${it.r.length} report${it.r.length==1?'':'s'}</b>${it.r.map(r=>`<div>${esc(r.u)}: ${esc(r.why)}</div>`).join('')}<div class="row"><button class="btn g" data-a="rok">Approve</button><button class="btn" data-a="rrm">Remove</button></div></div></div>`:'').join('');M('<h3>Reports</h3>'+(h||'<p class="mu">No reports right now.</p>'));hy()}
-async function openPost(id){const f=await get('posts/'+id+'.json');if(!f)return;await loadUC([f.data.user,...f.data.c.map(c=>c.u)]);const m=$('#modal');m.innerHTML=postH(f.data);m.style.display='block'}
+  <div id="appView" class="app hidden">
+    <div class="topbar">
+      <div class="brand">School Media</div>
+      <div class="row">
+        <button id="logoutBtn" class="ghost">Log out</button>
+      </div>
+    </div>
 
-/* ---- views ---- */
-async function home(){M(`<div class="tabs"><button data-a="tab" data-f="all" class="${FEED=='all'?'on':''}">For you</button><button data-a="tab" data-f="fol" class="${FEED=='fol'?'on':''}">Following</button></div><div id="fd"><div class="sk"></div></div><div id="mr"></div>`);let ns=(await ls('posts')).sort().reverse();if(FEED=='fol'){const f=[...(ME.following||[]),S.name];ns=ns.filter(n=>f.includes(un(n)))}ns=ns.slice(0,40);const all=(await Promise.all(ns.map(n=>get('posts/'+n)))).filter(Boolean).map(x=>x.data).filter(p=>(!p.hid||isDev())&&!(blk(p.user)&&!p.an));HN=FEED=='fol'?all.filter(p=>!p.an||p.user==S.name):all.map((p,i)=>[scoreP(p)+3*(1-i/40),p]).sort((a,b)=>b[0]-a[0]).map(x=>x[1]);HP=0;$('#fd').innerHTML='';await loadMore()}
-async function loadMore(){const b=HN.slice(HP,HP+8);HP+=8;const ps=b;await loadUC(ps.map(p=>p.user));$('#fd').insertAdjacentHTML('beforeend',ps.map(postH).join('')||(HP<=8?`<p class="mu">${FEED=='fol'?'Nothing here yet. Follow people from their profiles.':'No posts yet. Tap the plus button to create one.'}</p>':''));$('#mr').innerHTML=HP<HN.length?'<button class="btn g" data-a="more" style="margin:10px auto 20px;display:block">Load more</button>':''}
-async function avUp(e){const f=e.target.files[0];if(!f)return;toast('Uploading photo…');try{const p='media/av_'+S.name+'.jpg',x=await gh(p),sha=x.ok?(await x.json()).sha:undefined;const r=await gh(p,{method:'PUT',body:JSON.stringify({message:'avatar',content:await shrink(f,320),sha})});if(!r.ok)throw Error('Upload failed ('+r.status+')');await upd('users/'+S.name+'.json',q=>{q.av=1;return q});delete IC[p];UC[S.name]={...UC[S.name],a:true};go('profile')}catch(er){toast(er.message)}}
-async function tagv(t){M(`<h3>#${esc(t)}</h3><div id="fd"><div class="sk"></div></div>`);const ns=(await ls('posts')).sort().reverse().slice(0,60),ps=(await Promise.all(ns.map(n=>get('posts/'+n)))).filter(Boolean).map(x=>x.data).filter(p=>ptags(p).includes(t)&&(!p.hid||isDev())&&!(blk(p.user)&&!p.an));await loadUC(ps.map(p=>p.user));$('#fd').innerHTML=ps.map(postH).join('')||'<p class="mu">No posts with this tag yet.</p>';hy()}
-function settings(){const ks=[...new Set([...Object.keys(ME.tg),...Object.keys(ME.mt)])].map(k=>[k,tsc(k)]).sort((a,b)=>b[1]-a[1]);M(`<h3>Backgrounds</h3><div class="sws">${BGS.filter(x=>!x[2]).map(swH).join('')}</div><h3>Animated <span class="t">verified only</span></h3><div class="sws">${BGS.filter(x=>x[2]).map(swH).join('')}</div>${ks.length?`<h3>Learned interests</h3>${ks.map(([k,v])=>`<div class="ur"><b>#${k}</b><span class="t" style="flex:1">${v.toFixed(1)}</span><button data-a="tw" data-k="${k}" data-d="-5">${ic('minus',18)}</button><button data-a="tw" data-k="${k}" data-d="5">${ic('plus',18)}</button></div>`).join('')}`:'<div class="mu">Nothing learned yet.</div>'}<div style="padding:14px"><button class="btn g" data-a="rst">Reset learned interests</button></div>`)}
-const thumbs=ns=>ns.map(x=>{x=x.replace('.json','');return isV(x)?`<div class="vt" data-a="open" data-id="${x}">${ic('play',30,1)}</div>`:`<img data-p="${mp(x)}" data-a="open" data-id="${x}" alt="">`}).join('');
-async function explore(){M('<div class="row"><input id="q" class="in" placeholder="Search users or #tags"></div><div id="ur"></div><div class="grid" id="g"></div>');const us=(await ls('users')).map(x=>x.slice(0,-5));$('#q').oninput=async e=>{const v=e.target.value.trim().toLowerCase();if(!v){$('#ur').innerHTML='';return}if(v[0]=='#'){const g=v.slice(1).replace(/\W/g,'');$('#ur').innerHTML=g?`<a class="ur" data-a="tag" data-t="${g}">#${esc(g)}</a>`:' ';return}const names=us.filter(u=>u.includes(v)).slice(0,10);$('#ur').innerHTML=names.map(u=>`<a class="ur" data-a="user" data-u="${u}">${av(u)}<div><b>${esc(u)}</b>${badge(u)}</div></a>`).join('')};const ns=(await ls('posts')).sort().reverse().slice(0,40),ps=(await Promise.all(ns.map(n=>get('posts/'+n)))).filter(Boolean).map(x=>x.data).filter(p=>(!p.hid||isDev())&&!(blk(p.user)&&!p.an));$('#g').innerHTML=ps.map(p=>`<img data-p="${mp(p.id)}" data-a="open" data-id="${p.id}" alt="">`).join('')||'<p class="mu">Nothing here yet.</p>'}
-function newp(){M('<h3>New post</h3><div style="padding:0 14px"><input type="file" id="f" accept="image/*,video/*"><div class="t" style="padding:4px 0">Photos or videos (MP4/MOV, up to 25 MB)</div><div id="pw"></div><textarea id="cap" class="in" placeholder="Caption"></textarea><label class="ck"><input type="checkbox" id="an"> Post anonymously</label><button class="btn" id="sh">Share</button></div>');$('#f').onchange=e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f);$('#pw').innerHTML=f.type.startsWith('video/')?`<video id="pv" src="${u}" controls playsinline></video>`:`<img id="pv" src="${u}" alt="">`;};$('#sh').onclick=async()=>{const f=$('#f').files[0];if(!f)return toast('Choose a photo or video first');const vid=f.type.startsWith('video/')||/\.(mp4|mov|m4v|webm)$/i.test(f.name);if(vid&&f.size>25e6)return toast('Video is over 25 MB');$('#sh').disabled=true;toast(vid?'Uploading video, this can take a while…':'Sharing…');try{const id='p'+Date.now()+(vid?'v':'')+'_'+S.name;const d=vid?await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(',')[1]);r.onerror=no;r.readAsDataURL(f)}):await shrink(f);const r=await gh(mp(id),{method:'PUT',body:JSON.stringify({message:'media',content:d})});if(!r.ok)throw Error('Upload failed ('+r.status+')');await put('posts/'+id+'.json',{id,user:S.name,cap:$('#cap').value.trim(),an:$('#an').checked,ts:Date.now(),likes:[],c:[]});go(vid?'reels':'home')}catch(e){toast(e.message);$('#sh').disabled=false}}}
-async function profile(n){n=n||S.name;M('<p class="mu">Loading…</p>');const u=await get('users/'+n+'.json');if(!u)return M('<p class="mu">No such user</p>');const me=n==S.name;let ns=(await ls('posts')).filter(x=>un(x)==n).sort().reverse();if(!me){ns=ns.slice(0,40);const js=await Promise.all(ns.map(x=>get('posts/'+x)));ns=ns.filter((x,i)=>js[i]&&!js[i].data.an&&!js[i].data.hid)}UC[n]={v:asBool(u.data.verified),d:asBool(u.data.dev),a:!!u.data.av};PN=ns;const fl=(ME.following||[]).includes(n);M(`<div class="pf">${av(n,'big')}<div><h2>${esc(n)}${badge(n)}</h2><div class="t"><b>${ns.length}</b> posts &nbsp; <b>${(u.data.following||[]).length}</b> following</div><p>${esc(u.data.bio||'')}</p>${me?`<button class="btn g" data-a="${fl?'follow':'follow'}" data-u="${n}">${fl?'Following':'Follow'}</button>`:'<button class="btn g" data-a="follow" data-u="${n}">${fl?'Following':'Follow'}</button>'}</div></div>${me?`<div class="st"><label class="btn g" style="text-align:center;cursor:pointer">Change profile photo<input type="file" id="avf" accept="image/*" hidden></label><textarea id="bio" class="in" placeholder="Bio">${esc(u.data.bio||'')}</textarea><button class="btn" id="sb">Save bio</button><b>Account</b><input id="su" class="in" value="${esc(S.name)}" placeholder="Username"><input id="st" class="in" type="password" placeholder="GitHub token (password)"><button class="btn g" id="ss">Switch / update account</button><button class="btn g" id="lo">Log out</button></div>`:''}<div class="tabs"><button data-a="ptab" data-k="p" class="on">Posts</button><button data-a="ptab" data-k="s">Saved</button></div><div class="grid" id="pg">${thumbs(ns)}</div>`);if(me){$('#avf').onchange=avUp;$('#sb').onclick=async()=>{try{await upd('users/'+n+'.json',q=>{q.bio=$('#bio').value.trim();return q});toast('Saved')}catch(e){toast(e.message)}};$('#ss').onclick=async()=>{try{await login($('#su').value,$('#st').value.trim()||S.tok);go('profile')}catch(e){toast(e.message)}};$('#lo').onclick=()=>{localStorage.removeItem('sm');location.reload()}}}
-async function dms(){M('<p class="mu">Loading…</p>');const ks=(await ls('dms')).map(x=>x.slice(0,-5).split('~')).filter(k=>k.includes(S.name)).map(k=>k.find(x=>x!=S.name)||S.name);await loadUC(ks);const inf=await Promise.all(ks.map(x=>get('dms/'+[S.name,x].sort().join('~')+'.json').then(f=>f?f.data.m:[]).catch(()=>[])));M(`<h3>Messages</h3><div class="row"><input id="nu" class="in" placeholder="Username to message" autocapitalize="none"><button class="btn" data-a="new">Chat</button></div>`+(ks.map((x,i)=>`<a class="ur" data-a="dm" data-u="${x}">${av(x)}<div><b>${esc(x)}</b>${badge(x)}<span class="t">${inf[i].length?`${inf[i][inf[i].length-1].t.slice(0,30)}${inf[i][inf[i].length-1].t.length>30?'…':''}`:'No messages yet'}</span></div></a>`).join('')||'<p class="mu">No messages yet.</p>'))}
-function chat(u){const p='dms/'+[S.name,u].sort().join('~')+'.json';loadUC([u]);M(`<div class="ch"><div class="ph"><button data-a="back">${ic('back')}</button>${av(u)}<b>${esc(u)}</b>${badge(u)}</div><div id="ms" class="ms"></div><div class="ci"><input id="mi" placeholder="Message ${esc(u)}"><button id="mb" data-a="send">Send</button></div></div>`);let n=-1;const r=async()=>{try{const f=await get(p),m=f?f.data.m:[];if(m.length==n)return;n=m.length;localStorage.setItem('seen_'+u,n);const b=$('#ms');if(!b)return;b.innerHTML=m.map(x=>`<div class="b ${x.f==S.name?'me':''}">${esc(x.t)}</div>`).join('');b.scrollTop=b.scrollHeight}catch(e){}};r();poll=setInterval(r,4000);const s=async()=>{const i=$('#mi'),t=i.value.trim();if(!t)return;i.value='';try{await upd(p,q=>{q.m.push({f:S.name,t,ts:Date.now()});return q},{m:[]});r()}catch(e){toast(e.message)}};$('#mb').onclick=s;$('#mi').onkeydown=e=>e.key=='Enter'&&s()}
-const rvH=p=>{const l=p.likes.includes(S.name),fl=(ME.following||[]).includes(p.user);return `<div class="rw"><video data-p="${mp(p.id)}" loop playsinline muted data-a="rtap"></video><div class="ro"><div class="rn">${av(p.user)}<b>${esc(p.user)}</b>${badge(p.user)}</div>${capH(p.cap||'')}</div><div class="rb"><button data-a="rlike" class="${l?'on':''}">${ic('heart',26,l?1:0)}</button><div>${p.likes.length}</div><button data-a="ropen">${ic('comment',26)}</button></div></div>`};
-async function reels(){M('<div id="rl"><p class="mu">Loading…</p></div>');const names=(await ls('posts')).filter(n=>/^p\d+v_/.test(n)),rl=$('#rl');if(!names.length){rl.innerHTML='<p class="mu">No videos yet. Tap the plus button to upload one.</p>';return}const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};let busy=false,recent=[];rl.innerHTML='';const pick=async()=>{const pool=names.filter(n=>!recent.includes(n)),c=sh(pool.length?pool:names).slice(0,5);const ps=(await Promise.all(c.map(n=>PC[n]||get('posts/'+n).then(x=>x&&(PC[n]=x.data))))).filter(Boolean).filter(p=>(!p.hid||isDev())&&!(blk(p.user)&&!p.an));if(!ps.length)return null;const w=ps.map(p=>Math.max(.1,1+scoreP(p)));let r=Math.random()*w.reduce((x,y)=>x+y),i=0;for(;i<w.length-1;i++){r-=w[i];if(r<=0)break}recent.push(ps[i].id+'.json');if(recent.length>Math.min(8,names.length-1))recent.shift();return ps[i]};const more=async()=>{if(busy)return;busy=true;try{const p=await pick();if(p){await loadUC([p.user]);PM[p.id]=p;const d=document.createElement('div');d.className='rv';d.dataset.id=p.id;d.innerHTML=rvH(p);rl.appendChild(d);ld(d.querySelector('video'));}}finally{busy=false}};const io=new IntersectionObserver(es=>es.forEach(e=>{const rv=e.target,v=rv.querySelector('video'),i=+rv.dataset.i;if(e.intersectionRatio>.6){rv._t=Date.now();rv.dataset.on=1;ld(v);v.muted=MUTED;v.play().catch(()=>{});const nx=rl.children[i+1];if(nx)ld(nx.querySelector('video'));if(i>=rl.children.length-2)more()}else{if(rv._t){const d=(Date.now()-rv._t)/1e3;rv._t=0;bump(ptags(PM[rv.dataset.id]),d<2?-.5:Math.min(d,30)/10)}delete rv.dataset.on;v.pause()}}),{root:rl,threshold:[0,.6]});rl.querySelectorAll('.rv').forEach(rv=>io.observe(rv));await more();await more();await more()}
-async function activity(){M('<h3>Activity</h3><div class="sk"></div>');const ns=(await ls('posts')).filter(x=>un(x)==S.name).sort().reverse().slice(0,25),ps=(await Promise.all(ns.map(n=>get('posts/'+n)))).filter(Boolean).map(x=>x.data),ev=[];ps.forEach(p=>{p.c.forEach(c=>c.u!=S.name&&ev.push([c.ts,c.u,'commented: '+c.t,p.id]));p.likes.forEach(u=>u!=S.name&&ev.push([0,u,'liked your post',p.id]))});ev.sort((a,b)=>b[0]-a[0]);await loadUC(ev.map(e=>e[1]));M('<h3>Activity</h3>'+(ev.map(e=>`<a class="ur" data-a="open" data-id="${e[3]}">${av(e[1])}<div><b>${esc(e[1])}</b>${badge(e[1])} ${esc(e[2])}</div></a>`).join('')||'<p class="mu">Nothing yet. Interact with your posts to see activity.</p>'));hy()}
-async function rules(){M('<div class="sk"></div>');await loadRules();const ack=localStorage.getItem('rk')==String(RL.ts);M(`<h3>Rules</h3>${ruleH(RL.text)}<p class="t" style="padding:4px 16px">${RL.by?'Last updated by '+esc(RL.by)+' '+ago(RL.ts)+' ago':''}</p><div class="row">${ack?'':'<button class="btn" data-a="ack">I agree</button>'}<button class="btn g" data-a="redit" ${isDev()?'':'disabled'}>Edit rules</button></div>`)}
-const V={rules,activity,reports,home,explore,tagv,settings,reels,newp,dms,profile,chat};
-function go(v,a){clearInterval(poll);$('#modal').style.display='none';$('#modal').innerHTML='';document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==(v=='chat'?'dms':v)));Promise.resolve(V[v](a)).catch(e=>{toast(e.message);M('<p class="mu">Something went wrong. Check your token has access to the repo.</p>')});scrollTo(0,0)}
-document.querySelector('nav').onclick=e=>{const b=e.target.closest('button');b&&go(b.dataset.v)};
-document.addEventListener('click',e=>{if(e.target===$('#modal')){$('#modal').style.display='none';$('#modal').innerHTML='';return}const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a,art=t.closest('.post');if(a=='like')like(art);else if(a=='send')comment(art);else if(a=='del')delPost(art);else if(a=='focus')art.querySelector('.ci input').focus();else if(a=='user'){go('profile',t.dataset.u.toLowerCase())}else if(a=='open')openPost(t.dataset.id);else if(a=='dm')go('chat',t.dataset.u);else if(a=='back')go('dms');else if(a=='vhide'){if(!confirm('Hide this post until a developer reviews it?'))return;const id=art.dataset.id;hidePost(id).then(([d])=>{redraw(art,d);toast('Post hidden until a developer reviewed')}).catch(e=>toast(e.message))}else if(a=='block'){const u=t.dataset.u,on=blk(u);ME.blocked=on?ME.blocked.filter(x=>x!=u):[...(ME.blocked||[]),u];t.textContent=on?'Block':'Unblock';upd('users/'+S.name+'.json',q=>{const f=q.blocked||[];q.blocked=on?f.filter(x=>x!=u):f.includes(u)?f:[...f,u];return q}).catch(er=>toast(er.message))}else if(a=='ack'){localStorage.setItem('rk',String(RL.ts));go('home')}else if(a=='redit'&&isDev()){M(`<h3>Edit rules</h3><div style="padding:0 14px"><textarea id="rt" class="in">${esc(RL.text)}</textarea><div class="row"><button class="btn g" data-a="rcan">Cancel</button><button class="btn" data-a="rsave">Save</button><button class="btn g" data-a="rdef">Reset to defaults</button></div></div>`)}else if(a=='rsave'&&isDev()){const text=$('#rt').value.trim();if(!text)return toast('Rules cannot be empty');upd('rules.json',()=>({text,ts:Date.now(),by:S.name}),{}).then(d=>{RL=d;localStorage.setItem('rk',String(RL.ts));go('rules')}).catch(e=>toast(e.message))}else if(a=='rdef')$('#rt').value=DEF.join('\n');else if(a=='rcan')go('rules');else if(a=='act')go('activity');else if(a=='bg'){const id=t.dataset.id,b=BGS.find(x=>x[0]==id);if(b[2]&&!isVerified())return toast('Animated backgrounds are for verified users');ME.bg=id;applyBg();upd('users/'+S.name+'.json',q=>{q.bg=id;return q}).catch(er=>toast(er.message))}else if(a=='report')openReport(t.closest('[data-id]').dataset.id);else if(a=='rcl')closeM();else if(a=='rsend'){const id=t.closest('.post').dataset.id,why=document.querySelector('input[name=why]:checked').value,d=$('#rd').value.trim();upd('reports/'+id+'.json',q=>{if(!q.r.some(r=>r.u==S.name))q.r.push({u:S.name,why:why+(d?': '+d:''),ts:Date.now()});return q},{id,r:[]}).then(()=>{closeM();toast('Report sent');}).catch(er=>toast(er.message))}else if(a=='rrm'){const rp=t.closest('.rp');if(confirm('Remove this post and delete its files from GitHub?'))killPost(rp.dataset.rid).then(()=>{rp.remove();toast('Post removed')}).catch(er=>toast(er.message))}else if(a=='rok'){const rp=t.closest('.rp');Promise.all([rmf('reports/'+rp.dataset.rid+'.json'),upd('posts/'+rp.dataset.rid+'.json',q=>{q.hid=false;delete q.hb;return q})]).then(()=>{rp.remove();toast('Post approved')}).catch(er=>toast(er.message))}else if(a=='rdel'){const rv=t.closest('.rv');if(confirm('Delete this video?'))killPost(rv.dataset.id).then(()=>{rv.remove();toast('Deleted')}).catch(er=>toast(er.message))}else if(a=='dc'){const id=art.dataset.id,ts=+t.dataset.ts,u=t.dataset.u;upd('posts/'+id+'.json',q=>{q.c=q.c.filter(c=>!(c.ts==ts&&c.u==u));return q}).then(d=>redraw(art,d)).catch(er=>toast(er.message))}else if(a=='tag')go('tagv',t.dataset.t.toLowerCase());else if(a=='addt'){const k=$('#nt').value.trim().replace(/^#/,'').toLowerCase();if(/^\w+$/.test(k)){ME.mt[k]=(ME.mt[k]||0)+10;saveAlg();settings()}else toast('Use letters, numbers or _')}else if(a=='tw'){const k=t.dataset.k,d=t.dataset.d;ME.mt[k]=d=='x'?-100:(ME.mt[k]||0)+ +d;saveAlg();settings()}else if(a=='rst'){ME.tg={};saveAlg();settings()}else if(a=='follow'){const u=t.dataset.u,on=(ME.following||[]).includes(u);ME.following=on?ME.following.filter(x=>x!=u):[...(ME.following||[]),u];t.textContent=on?'Follow':'Following';t.classList.toggle('on',!on);upd('users/'+S.name+'.json',q=>{const f=q.following||[];q.following=on?f.filter(x=>x!=u):f.includes(u)?f:[...f,u];return q}).catch(er=>toast(er.message))}else if(a=='save'){const id=art.dataset.id,on=(ME.saved||[]).includes(id);ME.saved=on?ME.saved.filter(x=>x!=id):[...(ME.saved||[]),id];t.classList.toggle('on',!on);t.innerHTML=ic('save',24,!on);upd('users/'+S.name+'.json',q=>{const f=q.saved||[];q.saved=on?f.filter(x=>x!=id):f.includes(id)?f:[...f,id];return q}).catch(er=>toast(er.message))}else if(a=='rmute'){MUTED=!MUTED;document.querySelectorAll('#rl video').forEach(v=>v.muted=MUTED);document.querySelectorAll('button[data-a=rmute]').forEach(b=>b.innerHTML=ic(MUTED?'mute':'sound',22));}else if(a=='rlike'){const id=t.closest('.rv').dataset.id,p=PM[id],i=p.likes.indexOf(S.name);i<0?p.likes.push(S.name):p.likes.splice(i,1);t.classList.toggle('on',i<0);t.innerHTML=ic('heart',26,i<0?1:0);upd('posts/'+id+'.json',z=>{const j=z.likes.indexOf(S.name);(i<0)==(j<0)&&(j<0?z.likes.push(S.name):z.likes.splice(j,1));return z}).catch(er=>toast(er.message))}else if(a=='ropen'){document.querySelectorAll('#rl video').forEach(v=>v.pause());openPost(t.closest('.rv').dataset.id)}else if(a=='new'){const u=$('#nu').value.trim().toLowerCase();if(u)go('chat',u)}});
-document.addEventListener('dblclick',e=>{const t=e.target.closest('[data-a=dbl]');if(t){const art=t.closest('.post');if(!PM[art.dataset.id].likes.includes(S.name))like(art)}});
-document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.closest('.post .ci input'))comment(e.target.closest('.post'))});
-const dk=()=>(document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark';
-const sync=()=>$('#th').innerHTML=ic(dk()?'sun':'moon',22);
-if(localStorage.getItem('th'))document.documentElement.dataset.theme=localStorage.getItem('th');sync();
-$('#th').onclick=()=>{const n=dk()?'light':'dark';document.documentElement.dataset.theme=n;localStorage.setItem('th',n);sync()};
-$('#lgo').onclick=()=>go('home');
-$('#rb').innerHTML=ic('rules',22);$('#rb').onclick=()=>go('rules');
-document.querySelectorAll('nav button').forEach(b=>b.innerHTML=ic(b.dataset.v,26));
-document.addEventListener('timeupdate',e=>{const v=e.target;if(v.closest&&v.closest('.rw')&&v.duration)v.parentNode.querySelector('.pgb i').style.width=v.currentTime/v.duration*100+'%'},true);
-document.addEventListener('keydown',e=>{const rl=$('#rl');if(!rl||/INPUT|TEXTAREA/.test(e.target.tagName)||$('#modal').style.display=='block')return;const k=e.key,on=rl.querySelector('.rv[data-on]');if(k=='ArrowDown'||k=='ArrowUp'){e.preventDefault();rl.scrollBy({top:(k=='ArrowDown'?1:-1)*rl.clientHeight,behavior:'smooth'})}else if(on){const v=on.querySelector('video');if(k==' '){e.preventDefault();v.paused?v.play():v.pause()}else if(k=='m')on.querySelector('[data-a=rmute]').click();else if(k=='l')on.querySelector('[data-a=rlike]').click()}});
-if(S&&S.tok)start();
-</script></body></html>
+    <div class="card profile-header">
+      <div class="avatar" id="profileAvatar">U</div>
+      <div>
+        <div id="profileName" style="font-size:1.5rem;font-weight:800;"></div>
+        <div id="profileBadges" class="row" style="margin-top:6px"></div>
+      </div>
+    </div>
+
+    <div class="card panel stack" style="margin-top:16px">
+      <div>
+        <h3 style="margin-bottom:8px">Account</h3>
+        <div class="field">
+          <label for="profileBio">Bio</label>
+          <textarea id="profileBio" placeholder="Tell everyone about yourself..."></textarea>
+        </div>
+        <div class="field">
+          <label for="newAccountPassword">New account password</label>
+          <input id="newAccountPassword" type="password" placeholder="Leave blank to keep current password" />
+        </div>
+        <div class="field">
+          <label for="confirmAccountPassword">Confirm account password</label>
+          <input id="confirmAccountPassword" type="password" placeholder="Re-type new password" />
+        </div>
+        <button id="saveProfileBtn" class="primary" style="width:100%">Save profile</button>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:8px">Access</h3>
+        <div class="small">Use this to require a password when logging in from another device.</div>
+        <div id="passwordStatus" class="small" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const repo = 'ToasterGG/School-media';
+    const repoBase = 'https://api.github.com/repos/' + repo + '/contents/';
+    const $ = (sel) => document.querySelector(sel);
+
+    let session = null;
+    try {
+      session = JSON.parse(localStorage.getItem('school-media-session') || 'null');
+    } catch (e) {}
+
+    const setStatus = (el, msg, ok = false) => {
+      el.textContent = msg || '';
+      el.classList.toggle('ok', !!ok);
+    };
+
+    const toHash = async (value) => {
+      const bytes = new TextEncoder().encode(value || '');
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+    };
+
+    const apiFetch = (path, extra = {}) => {
+      if (!session || !session.token) return Promise.reject(new Error('No active session'));
+      return fetch(repoBase + path, {
+        cache: 'no-store',
+        headers: {
+          Accept: 'application/vnd.github+json',
+          Authorization: 'Bearer ' + session.token,
+          ...(extra.headers || {})
+        },
+        ...extra
+      });
+    };
+
+    const decodeBase64 = (str) => {
+      try {
+        return JSON.parse(decodeURIComponent(escape(atob(str.replace(/\n/g, '')))));
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const encodeBase64 = (obj) => btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
+
+    const getUserFile = async (name) => {
+      const r = await apiFetch('users/' + name + '.json');
+      if (!r.ok) return null;
+      const data = await r.json();
+      return { sha: data.sha, data: decodeBase64(data.content) };
+    };
+
+    const writeUserFile = async (name, user, sha) => {
+      const r = await apiFetch('users/' + name + '.json', {
+        method: 'PUT',
+        body: JSON.stringify({
+          message: 'update user',
+          content: encodeBase64(user),
+          sha: sha || undefined
+        })
+      });
+      if (!r.ok) {
+        const text = await r.text();
+        throw new Error('GitHub write failed: ' + r.status + ' ' + text);
+      }
+      return await r.json();
+    };
+
+    const promptForPassword = (title, subtitle) => new Promise((resolve) => {
+      const m = $('#modalContent');
+      m.innerHTML = `
+        <h3>${title}</h3>
+        <p class="small" style="margin-bottom:12px">${subtitle}</p>
+        <div class="field">
+          <label for="pw1">New password</label>
+          <input id="pw1" type="password" placeholder="Choose a password" />
+        </div>
+        <div class="field">
+          <label for="pw2">Confirm password</label>
+          <input id="pw2" type="password" placeholder="Re-type it" />
+        </div>
+        <div class="row">
+          <button class="ghost" data-action="cancel-password">Later</button>
+          <button class="primary" data-action="save-password">Save password</button>
+        </div>
+      `;
+      $('#modalBackdrop').style.display = 'flex';
+      $('#modalBackdrop').onclick = (e) => {
+        if (e.target === $('#modalBackdrop')) {
+          $('#modalBackdrop').style.display = 'none';
+          resolve(null);
+        }
+      };
+      $('[data-action="cancel-password"]').onclick = () => {
+        $('#modalBackdrop').style.display = 'none';
+        resolve(null);
+      };
+      $('[data-action="save-password"]').onclick = () => {
+        const p1 = $('#pw1').value.trim();
+        const p2 = $('#pw2').value.trim();
+        if (p1.length < 4) {
+          setStatus($('#loginStatus'), 'Password must be at least 4 characters.', false);
+          return;
+        }
+        if (p1 !== p2) {
+          setStatus($('#loginStatus'), 'Passwords do not match.', false);
+          return;
+        }
+        $('#modalBackdrop').style.display = 'none';
+        resolve(p1);
+      };
+    });
+
+    const openApp = async () => {
+      $('#loginView').classList.add('hidden');
+      $('#appView').classList.remove('hidden');
+      await showProfile();
+    };
+
+    const showProfile = async () => {
+      if (!session || !session.name) return;
+      const u = await getUserFile(session.name);
+      const user = u && u.data ? u.data : { name: session.name, bio: '', verified: false, dev: false, password: '' };
+      const initials = (user.name || 'U').split(/[^a-z0-9]+/i).filter(Boolean).slice(0,2).map(part => part[0].toUpperCase()).join('') || 'U';
+      $('#profileAvatar').textContent = initials;
+      $('#profileName').textContent = user.name || session.name;
+      $('#profileBio').value = user.bio || '';
+      $('#profileBadges').innerHTML = '';
+      if (user.verified) {
+        $('#profileBadges').insertAdjacentHTML('beforeend', '<span class="badge">Verified</span>');
+      }
+      if (user.dev) {
+        $('#profileBadges').insertAdjacentHTML('beforeend', '<span class="badge warn">Developer</span>');
+      }
+      if (!user.password) {
+        $('#passwordStatus').textContent = 'No account password is set yet.';
+      } else {
+        $('#passwordStatus').textContent = 'Account password is enabled.';
+      }
+    };
+
+    const saveProfile = async () => {
+      const current = await getUserFile(session.name);
+      const user = current && current.data ? current.data : { name: session.name, verified: false, dev: false };
+      const newBio = $('#profileBio').value.trim();
+      const newPw = $('#newAccountPassword').value.trim();
+      const confirmPw = $('#confirmAccountPassword').value.trim();
+
+      if (newPw && newPw.length < 4) {
+        setStatus($('#loginStatus'), 'Passwords must be at least 4 chars.', false);
+        return;
+      }
+      if (newPw && newPw !== confirmPw) {
+        setStatus($('#loginStatus'), 'New password and confirmation do not match.', false);
+        return;
+      }
+
+      if (newPw) {
+        user.password = await toHash(newPw);
+      }
+      user.bio = newBio;
+      user.name = session.name;
+      user.owner = user.owner || session.name;
+      user.verified = !!user.verified;
+      user.dev = !!user.dev;
+
+      const result = await writeUserFile(session.name, user, current ? current.sha : undefined);
+      $('#newAccountPassword').value = '';
+      $('#confirmAccountPassword').value = '';
+      setStatus($('#loginStatus'), 'Profile saved.', true);
+      await showProfile();
+    };
+
+    const ensureAccountPassword = async (name, passwordInput) => {
+      const userFile = await getUserFile(name);
+      const user = userFile && userFile.data ? userFile.data : { name, verified: false, dev: false };
+      if (user.password) {
+        if (!passwordInput || passwordInput.trim() === '') {
+          throw new Error('This account already has a password. Enter it to sign in.');
+        }
+        const hash = await toHash(passwordInput.trim());
+        if (hash !== user.password) {
+          throw new Error('Incorrect account password.');
+        }
+        return user;
+      }
+
+      if (passwordInput && passwordInput.trim()) {
+        user.password = await toHash(passwordInput.trim());
+        await writeUserFile(name, user, userFile ? userFile.sha : undefined);
+        return user;
+      }
+
+      const chosen = await promptForPassword(
+        'Create an account password',
+        'This account does not have one yet. Set a password so it is protected on other devices.'
+      );
+      if (!chosen) {
+        return user;
+      }
+      user.password = await toHash(chosen);
+      await writeUserFile(name, user, userFile ? userFile.sha : undefined);
+      return user;
+    };
+
+    const login = async () => {
+      const username = $('#username').value.trim().toLowerCase();
+      const token = $('#token').value.trim();
+      const accountPassword = $('#accountPassword').value.trim();
+
+      if (!username || !token) {
+        setStatus($('#loginStatus'), 'Please enter your username and GitHub token.', false);
+        return;
+      }
+
+      try {
+        setStatus($('#loginStatus'), 'Checking credentials…', false);
+        const r = await fetch('https://api.github.com/user', {
+          headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
+        });
+        if (!r.ok) {
+          throw new Error('Invalid GitHub token.');
+        }
+
+        const currentUser = await r.json();
+        const name = username;
+
+        let userFile = await getUserFile(name);
+        let user = userFile && userFile.data ? userFile.data : { name, owner: currentUser.login, bio: '', verified: false, dev: false };
+        user.name = name;
+        user.owner = user.owner || currentUser.login;
+        user.verified = !!user.verified;
+        user.dev = !!user.dev;
+
+        if (userFile && userFile.data && userFile.data.owner && userFile.data.owner !== currentUser.login) {
+          throw new Error('This username is already owned by a different GitHub account.');
+        }
+
+        const savedUser = await ensureAccountPassword(name, accountPassword);
+        user = { ...user, ...savedUser };
+
+        if (!userFile) {
+          await writeUserFile(name, user);
+        } else {
+          await writeUserFile(name, user, userFile.sha);
+        }
+
+        session = { name, token };
+        localStorage.setItem('school-media-session', JSON.stringify(session));
+        setStatus($('#loginStatus'), 'Signed in successfully.', true);
+        $('#accountPassword').value = '';
+        $('#token').value = '';
+        openApp();
+      } catch (err) {
+        setStatus($('#loginStatus'), err.message || 'Unable to sign in.', false);
+      }
+    };
+
+    const logout = () => {
+      localStorage.removeItem('school-media-session');
+      session = null;
+      $('#appView').classList.add('hidden');
+      $('#loginView').classList.remove('hidden');
+      $('#username').value = '';
+      $('#token').value = '';
+      $('#accountPassword').value = '';
+      setStatus($('#loginStatus'), '', false);
+    };
+
+    $('#loginBtn').addEventListener('click', login);
+    $('#saveProfileBtn').addEventListener('click', saveProfile);
+    $('#logoutBtn').addEventListener('click', logout);
+
+    if (session && session.name && session.token) {
+      openApp();
+    }
+  </script>
+</body>
+</html>
